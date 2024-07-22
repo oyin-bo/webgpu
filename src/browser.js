@@ -23,3 +23,6 @@ function bindTo(target) {
 }
 
 module.exports = lib;
+if (typeof window !== 'undefined' && window) {
+  window['GPU'] = lib.GPU;
+}

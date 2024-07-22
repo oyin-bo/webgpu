@@ -19879,6 +19879,9 @@ void main(void) {
         });
       }
       module.exports = lib;
+      if (typeof window !== "undefined" && window) {
+        window["GPU"] = lib.GPU;
+      }
     }
   });
   require_browser();
