@@ -1,8 +1,8 @@
-const { gpuMock } = require('gpu-mock.js');
+// const { gpuMock } = require('gpu-mock.js');
 const { utils } = require('./utils');
 const { Kernel } = require('./backend/kernel');
 const { CPUKernel } = require('./backend/cpu/kernel');
-const { HeadlessGLKernel } = require('./backend/headless-gl/kernel');
+//const { HeadlessGLKernel } = require('./backend/headless-gl/kernel');
 const { WebGL2Kernel } = require('./backend/web-gl2/kernel');
 const { WebGLKernel } = require('./backend/web-gl/kernel');
 const { kernelRunShortcut } = require('./kernel-run-shortcut');
@@ -12,7 +12,7 @@ const { kernelRunShortcut } = require('./kernel-run-shortcut');
  *
  * @type {Array.<Kernel>}
  */
-const kernelOrder = [HeadlessGLKernel, WebGL2Kernel, WebGLKernel];
+const kernelOrder = [/*HeadlessGLKernel,*/ WebGL2Kernel, WebGLKernel];
 
 /**
  *
@@ -21,7 +21,7 @@ const kernelOrder = [HeadlessGLKernel, WebGL2Kernel, WebGLKernel];
 const kernelTypes = ['gpu', 'cpu'];
 
 const internalKernels = {
-  'headlessgl': HeadlessGLKernel,
+  //'headlessgl': HeadlessGLKernel,
   'webgl2': WebGL2Kernel,
   'webgl': WebGLKernel,
 };
@@ -75,12 +75,12 @@ class GPU {
     return WebGL2Kernel.isSupported;
   }
 
-  /**
-   * @desc TRUE if platform supports HeadlessGL
-   */
-  static get isHeadlessGLSupported() {
-    return HeadlessGLKernel.isSupported;
-  }
+  // /**
+  //  * @desc TRUE if platform supports HeadlessGL
+  //  */
+  // static get isHeadlessGLSupported() {
+  //   return HeadlessGLKernel.isSupported;
+  // }
 
   /**
    *
@@ -146,9 +146,13 @@ class GPU {
   chooseKernel() {
     if (this.Kernel) return;
 
-    /**
-     *
+
+    /* was:
      * @type {WebGLKernel|WebGL2Kernel|HeadlessGLKernel|CPUKernel}
+     */
+
+    /**
+     * @type {WebGLKernel|WebGL2Kernel|CPUKernel}
      */
     let Kernel = null;
 
@@ -217,11 +221,11 @@ class GPU {
     }
 
     const kernels = this.kernels;
-    if (this.mode === 'dev') {
-      const devKernel = gpuMock(source, upgradeDeprecatedCreateKernelSettings(settings));
-      kernels.push(devKernel);
-      return devKernel;
-    }
+    // if (this.mode === 'dev') {
+    //   const devKernel = gpuMock(source, upgradeDeprecatedCreateKernelSettings(settings));
+    //   kernels.push(devKernel);
+    //   return devKernel;
+    // }
 
     source = typeof source === 'function' ? source.toString() : source;
     const switchableKernels = {};

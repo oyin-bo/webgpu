@@ -256,9 +256,9 @@ export class WebGLKernel extends GLKernel {
 export class WebGL2Kernel extends WebGLKernel {
 
 }
-export class HeadlessGLKernel extends WebGLKernel {
+// export class HeadlessGLKernel extends WebGLKernel {
 
-}
+// }
 
 export interface IArgumentTypes {
   argumentTypes: GPUVariableType[],
